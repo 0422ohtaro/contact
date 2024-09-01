@@ -8,11 +8,14 @@ class ContactController extends Controller {
         $_SESSION['contact_step'] = 'index';
         $contactModel = new Contact();
         $contacts = $contactModel->getAllContacts();
-        $this->smarty->assign('contacts', $contacts);
         $csrfToken = $this->generateCsrfToken();
-        $this->smarty->assign('csrf_token', $csrfToken);
-        $this->smarty->display('contact/index.tpl');
+    
+        $this->view('contact/index', [
+            'contacts' => $contacts,
+            'csrf_token' => $csrfToken
+        ]);
     }
+    
 
     public function delete() {
         if (!isset($_GET['id'])) {
