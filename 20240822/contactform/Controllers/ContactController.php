@@ -42,9 +42,9 @@ class ContactController extends Controller {
             throw new Exception('Invalid CSRF token');
         }
 
-        $data = array_map(function($value) {
-            return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-        }, $data);
+        // $data = array_map(function($value) {
+        //     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        // }, $data);
 
         $_SESSION['contact_data'] = $data;
         $this->smarty->assign('contact', $data);

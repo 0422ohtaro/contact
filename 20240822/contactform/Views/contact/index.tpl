@@ -62,7 +62,7 @@
                     <td>{$contact.kana|escape:'html'}</td>
                     <td>{$contact.tel|escape:'html'}</td>
                     <td>{$contact.email|escape:'html'}</td>
-                    <td>{$contact.body|nl2br|escape:'html'}</td>
+                    <td>{$contact.body|escape:'htmlall'|nl2br}</td>
                     <td>
                         <a href="/contact/edit?id={$contact.id|escape:'html'}" class="btn btn-edit">編集</a>
                         <a href="/contact/delete?id={$contact.id|escape:'html'}" class="btn delete-btn" onclick="return confirm('削除しますか?')">削除</a>

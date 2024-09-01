@@ -38,7 +38,7 @@ if (!isset($_SESSION['contact_step']) || $_SESSION['contact_step'] !== 'confirm'
             </div>
             <div class="form-group">
                 <label>お問い合わせ内容:</label>
-                <p>{$contact.body|escape:'html'}</p>
+                <p>{$contact.body|escape:'htmlall'|nl2br}</p>
             </div>
             <div class="button-group">
                 <button type="submit" class="btn">送信する</button>
