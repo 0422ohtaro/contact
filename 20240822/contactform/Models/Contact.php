@@ -25,11 +25,11 @@ class Contact {
         try {
             $this->beginTransaction();
             $stmt = $this->db->prepare("INSERT INTO contacts (name, kana, tel, email, body) VALUES (:name, :kana, :tel, :email, :body)");
-            $stmt->bindParam(':name', htmlspecialchars($data['name'], ENT_QUOTES, 'UTF-8'));
-            $stmt->bindParam(':kana', htmlspecialchars($data['kana'], ENT_QUOTES, 'UTF-8'));
-            $stmt->bindParam(':tel', htmlspecialchars($data['tel'], ENT_QUOTES, 'UTF-8'));
-            $stmt->bindParam(':email', htmlspecialchars($data['email'], ENT_QUOTES, 'UTF-8'));
-            $stmt->bindParam(':body', htmlspecialchars($data['body'], ENT_QUOTES, 'UTF-8'));
+            $stmt->bindParam(':name', $data['name']);
+            $stmt->bindParam(':kana', $data['kana']);
+            $stmt->bindParam(':tel', $data['tel']);
+            $stmt->bindParam(':email', $data['email']);
+            $stmt->bindParam(':body', $data['body']);
             $stmt->execute();
             $this->commit();
         } catch (Exception $e) {
@@ -48,11 +48,11 @@ class Contact {
             $this->beginTransaction();
             $stmt = $this->db->prepare("INSERT INTO contacts (name, kana, tel, email, body, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
             $stmt->execute([
-                htmlspecialchars($data['name'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['kana'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['tel'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['email'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['body'], ENT_QUOTES, 'UTF-8')
+                $data['name'],
+                $data['kana'],
+                $data['tel'],
+                $data['email'],
+                $data['body']
             ]);
             $this->commit();
         } catch (Exception $e) {
@@ -65,19 +65,17 @@ class Contact {
         try {
             $stmt = $this->db->prepare("UPDATE contacts SET name = ?, kana = ?, tel = ?, email = ?, body = ? WHERE id = ?");
             $stmt->execute([
-                htmlspecialchars($data['name'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['kana'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['tel'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['email'], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($data['body'], ENT_QUOTES, 'UTF-8'),
+                $data['name'],
+                $data['kana'],
+                $data['tel'],
+                $data['email'],
+                $data['body'],
                 $id
             ]);
         } catch (Exception $e) {
             throw $e;
         }
     }
-    
-    
 
     public function getContactById($id) {
         $stmt = $this->db->prepare("SELECT * FROM contacts WHERE id = ?");

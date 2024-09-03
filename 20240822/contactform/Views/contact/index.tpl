@@ -13,7 +13,7 @@
     <div class="container">
         <h2>お問い合わせ</h2>
         <form id="contactForm" action="/contact/confirm" method="post">
-            <input type="hidden" name="csrf_token" value="{$csrf_token|escape:'html'}">
+            <input type="hidden" name="csrf_token" value="{$csrf_token}">
             <div class="form-group">
                 <label>氏名:</label>
                 <input type="text" name="name" id="name" value="{$name|default:''|escape:'html'}">
@@ -62,7 +62,7 @@
                     <td>{$contact.kana|escape:'html'}</td>
                     <td>{$contact.tel|escape:'html'}</td>
                     <td>{$contact.email|escape:'html'}</td>
-                    <td>{$contact.body|escape:'htmlall'|nl2br}</td>
+                    <td>{$contact.body|escape:'html'|nl2br}</td>
                     <td>
                         <a href="/contact/edit?id={$contact.id|escape:'html'}" class="btn btn-edit">編集</a>
                         <a href="/contact/delete?id={$contact.id|escape:'html'}" class="btn delete-btn" onclick="return confirm('削除しますか?')">削除</a>

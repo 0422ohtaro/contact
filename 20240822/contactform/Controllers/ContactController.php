@@ -50,10 +50,13 @@ class ContactController extends Controller {
         // }, $data);
 
         $_SESSION['contact_data'] = $data;
-        $this->smarty->assign('contact', $data);
         $csrfToken = $this->generateCsrfToken();
-        $this->smarty->assign('csrf_token', $csrfToken);
-        $this->smarty->display('contact/confirm.tpl');
+
+        $this->view('contact/confirm', [
+            'contact' => $data,
+            'csrf_token' => $csrfToken
+        ]);
+
     }
 
     public function complete() {
@@ -72,8 +75,10 @@ class ContactController extends Controller {
         $contactModel->createContact($data);
 
         unset($_SESSION['contact_data']);
-        $this->smarty->display('contact/complete.tpl');
-    }
+
+        $this->view('contact/complete');
+
+            }
 
     private function validate($data) {
         $errors = [];
@@ -122,10 +127,13 @@ class ContactController extends Controller {
         }
     
         $csrfToken = $this->generateCsrfToken();
-        $this->smarty->assign('csrf_token', $csrfToken);
-        $this->smarty->assign('contact', $contactData);
-        $this->smarty->display('contact/edit.tpl');
-    }
+
+        $this->view('contact/edit', [
+            'csrf_token' => $csrfToken,
+            'contact' => $contactData
+        ]);
+
+            }
 
     public function update() {
         if ($_SESSION['contact_step'] !== 'edit') {
